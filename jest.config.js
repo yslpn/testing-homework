@@ -7,4 +7,5 @@ module.exports = {
     "^.+\\.(js|jsx)$": "babel-jest",
   },
   testEnvironmentOptions: { url: "http://localhost:3000/hw/store/" },
+  setupFilesAfterEnv: ["@testing-library/jest-dom/extend-expect"],
 };
