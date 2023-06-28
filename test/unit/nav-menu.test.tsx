@@ -1,7 +1,7 @@
 import React from "react";
+import { render, screen } from "../test-utils";
 
 import { Application } from "../../src/client/Application";
-import { render, screen } from "../test-utils";
 
 test("проверка наличия ссылок на страницы магазина и корзину в шапке", () => {
   render(<Application />);
