@@ -11,7 +11,7 @@
     },
     "include": [
         "src"
-    ],
+, "test/test-utils.jsx"    ],
     "ts-node": {
         "compilerOptions": {
             "module": "CommonJS"
