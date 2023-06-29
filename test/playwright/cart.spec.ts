@@ -16,11 +16,13 @@ test.describe("проверка функциональности корзины"
     await page.goto("http://localhost:3000/hw/store/catalog");
 
     await page.locator(".card-link").nth(1).click();
+    // await page.goto(`${page.url()}?bug_id=6`);
     await page.locator(".ProductDetails-AddToCart").click();
 
     await page.goto("http://localhost:3000/hw/store/catalog");
 
     await page.locator(".card-link").nth(2).click();
+    // await page.goto(`${page.url()}?bug_id=7`);
     await page.locator(".ProductDetails-AddToCart").click();
     await page.locator(".ProductDetails-AddToCart").click();
   });
@@ -107,6 +109,9 @@ test.describe("проверка функциональности корзины"
   });
 
   test("заказ выполнен успешно", async ({ page }) => {
+    // await page.goto("http://localhost:3000/hw/store/cart?bug_id=10");
+    // await page.goto("http://localhost:3000/hw/store/cart?bug_id=5");
+    // await page.goto("http://localhost:3000/hw/store/cart?bug_id=8");
     await page.goto("http://localhost:3000/hw/store/cart");
     await page.locator("#f-name").fill("Ivan Ivanov");
     await page.locator("#f-phone").fill("+995591805020");
@@ -115,5 +120,7 @@ test.describe("проверка функциональности корзины"
     await page.locator(".Form-Submit").click();
 
     await expect(page.getByText("Well done!")).toBeVisible();
+
+    await expect(page).toHaveScreenshot({fullPage: true});
   });
 });

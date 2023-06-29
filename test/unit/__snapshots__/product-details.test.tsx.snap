@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Страница продукта отрендерилась успешно 1`] = `
+<div>
+  <div
+    class="ProductDetails row"
+  >
+    <div
+      class="col-12 col-sm-5 col-lg-4"
+    >
+      <img
+        class="Image"
+        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkMAYAADkANVKH3ScAAAAASUVORK5CYII="
+      />
+    </div>
+    <div
+      class="col-12 col-sm-7 col-lg-6"
+    >
+      <h1
+        class="ProductDetails-Name"
+      >
+        Refined Sausages
+      </h1>
+      <p
+        class="ProductDetails-Description"
+      >
+        The beautiful range of Apple Naturalé that has an exciting mix of natural ingredients. With the Goodness of 100% Natural Ingredients
+      </p>
+      <p
+        class="ProductDetails-Price fs-3"
+      >
+        $
+        347
+      </p>
+      <p>
+        <button
+          class="ProductDetails-AddToCart btn btn-primary btn-lg"
+        >
+          Add to Cart
+        </button>
+      </p>
+      <dl>
+        <dt>
+          Color
+        </dt>
+        <dd
+          class="ProductDetails-Color text-capitalize"
+        >
+          fuchsia
+        </dd>
+        <dt>
+          Material
+        </dt>
+        <dd
+          class="ProductDetails-Material text-capitalize"
+        >
+          Granite
+        </dd>
+      </dl>
+    </div>
+  </div>
+</div>
+`;

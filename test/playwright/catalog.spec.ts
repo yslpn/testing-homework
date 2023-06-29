@@ -12,6 +12,7 @@ test("по адресу /catalog отобразились все товары, �
   await page.goto("http://localhost:3000/hw/store/catalog");
 
   const products = await fetch(
+    // "http://localhost:3000/hw/store/api/products?bug_id=1"
     "http://localhost:3000/hw/store/api/products"
   ).then((res) => res.json());
 

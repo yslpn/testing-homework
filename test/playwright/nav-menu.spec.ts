@@ -55,6 +55,7 @@ test('при выборе элемента из меню "гамбургера",
   page,
 }) => {
   await page.setViewportSize({ width: 575, height: 575 });
+  // await page.goto("http://localhost:3000/hw/store/?bug_id=4");
   await page.goto("http://localhost:3000/hw/store/");
   await page.locator(".navbar-toggler").click();
 
