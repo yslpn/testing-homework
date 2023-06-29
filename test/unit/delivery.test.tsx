@@ -13,6 +13,8 @@ const expectedTexts = [
 test('проверка содержимого страницы "условия доставки" ', () => {
   render(<Delivery />);
 
+  expect(screen.getByRole("img")).toBeInTheDocument();
+
   expectedTexts.forEach((text) => {
     expect(screen.getByText(text)).toBeInTheDocument();
   });
