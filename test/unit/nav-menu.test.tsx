@@ -9,8 +9,8 @@ test("проверка наличия ссылок на страницы маг�
   const storeLink: HTMLAnchorElement = screen.getByRole("link", { name: 'Example store' });
   const cartLink: HTMLAnchorElement = screen.getByRole("link", { name: /Cart/i });
 
-  expect(storeLink.href).toBe('http://localhost:3000/hw/store/')
-  expect(cartLink.href).toBe('http://localhost:3000/hw/store/cart')
+  expect(storeLink).toHaveAttribute('href','/hw/store/')
+  expect(cartLink).toHaveAttribute('href','/hw/store/cart')
   
   expect(storeLink).toBeInTheDocument();
   expect(cartLink).toBeInTheDocument();
