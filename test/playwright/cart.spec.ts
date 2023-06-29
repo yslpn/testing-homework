@@ -105,4 +105,15 @@ test.describe("проверка функциональности корзины"
       page.getByRole("link", { name: "catalog", exact: true })
     ).toHaveAttribute("href", "/hw/store/catalog");
   });
+
+  test("заказ выполнен успешно", async ({ page }) => {
+    await page.goto("http://localhost:3000/hw/store/cart");
+    await page.locator("#f-name").fill("Ivan Ivanov");
+    await page.locator("#f-phone").fill("+995591805020");
+    await page.locator("#f-address").fill("Tbilisi, 40 Simon Chikovani Street");
+
+    await page.locator(".Form-Submit").click();
+
+    await expect(page.getByText("Well done!")).toBeVisible();
+  });
 });
