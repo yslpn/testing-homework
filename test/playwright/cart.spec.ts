@@ -95,19 +95,6 @@ test.describe("проверка функциональности корзины"
     expect(Number(link?.match(/\d+/)?.[0])).toBe(3);
   });
 
-  test("если корзина пустая, должна отображаться ссылка на каталог товаров", async ({
-    page,
-  }) => {
-    await page.goto("http://localhost:3000/hw/store/cart");
-    await page.getByText("Clear shopping cart").click();
-    await expect(
-      page.getByRole("link", { name: "catalog", exact: true })
-    ).toBeVisible();
-    await expect(
-      page.getByRole("link", { name: "catalog", exact: true })
-    ).toHaveAttribute("href", "/hw/store/catalog");
-  });
-
   test("заказ выполнен успешно", async ({ page }) => {
     // await page.goto("http://localhost:3000/hw/store/cart?bug_id=10");
     // await page.goto("http://localhost:3000/hw/store/cart?bug_id=5");

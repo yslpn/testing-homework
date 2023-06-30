@@ -38,13 +38,4 @@ test("Страница продукта отрендерилась успешн�
   });
 
   expect(container).toMatchSnapshot();
-
-  // fireEvent.change(input, { target: { value: "новое значение" } });
-
-  // await screen.goto("http://localhost:3000/hw/store/cart");
-  // await screen.locator("#f-name").fill("Ivan Ivanov");
-  // await screen.locator("#f-phone").fill("+995591805020");
-  // await screen.locator("#f-address").fill("Tbilisi, 40 Simon Chikovani Street");
-
-  // await screen.locator(".Form-Submit").click();
 });
