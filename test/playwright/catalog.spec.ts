@@ -1,7 +1,9 @@
 import { test, expect } from "@playwright/test";
 
 test('по адресу /catalog открывается страница "каталог"', async ({ page }) => {
-  await page.goto("http://localhost:3000/hw/store/catalog");
+  await page.goto(
+    `http://localhost:3000/hw/store/catalog?bug_id=${process.env.BUG_ID ?? 0}`
+  );
 
   await expect(page.getByTestId("page-title")).toHaveText("Catalog");
 });
@@ -9,11 +11,14 @@ test('по адресу /catalog открывается страница "кат
 test("по адресу /catalog отобразились все товары, которые пришли с сервера", async ({
   page,
 }) => {
-  await page.goto("http://localhost:3000/hw/store/catalog");
+  await page.goto(
+    `http://localhost:3000/hw/store/catalog?bug_id=${process.env.BUG_ID ?? 0}`
+  );
 
   const products = await fetch(
-    // "http://localhost:3000/hw/store/api/products?bug_id=1"
-    "http://localhost:3000/hw/store/api/products"
+    `http://localhost:3000/hw/store/api/products?bug_id=${
+      process.env.BUG_ID ?? 0
+    }`
   ).then((res) => res.json());
 
   for (const product of products) {

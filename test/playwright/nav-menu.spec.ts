@@ -5,7 +5,9 @@ test('на ширине меньше 576px навигационное меню �
 }) => {
   await page.setViewportSize({ width: 575, height: 575 });
 
-  await page.goto("http://localhost:3000/hw/store/");
+  await page.goto(
+    `http://localhost:3000/hw/store?bug_id=${process.env.BUG_ID ?? 0}`
+  );
 
   await expect(page.locator(".navbar-toggler")).toBeVisible();
   await expect(page.locator(".navbar-nav")).toBeHidden();
@@ -30,7 +32,9 @@ test('на ширине 576px или больше появляется нави�
   page,
 }) => {
   await page.setViewportSize({ width: 576, height: 576 });
-  await page.goto("http://localhost:3000/hw/store/");
+  await page.goto(
+    `http://localhost:3000/hw/store?bug_id=${process.env.BUG_ID ?? 0}`
+  );
 
   await expect(page.locator(".navbar-toggler")).toBeHidden();
   await expect(page.locator(".navbar-nav")).toBeVisible();
@@ -55,8 +59,9 @@ test('при выборе элемента из меню "гамбургера",
   page,
 }) => {
   await page.setViewportSize({ width: 575, height: 575 });
-  // await page.goto("http://localhost:3000/hw/store/?bug_id=4");
-  await page.goto("http://localhost:3000/hw/store/");
+  await page.goto(
+    `http://localhost:3000/hw/store/?bug_id=${process.env.BUG_ID ?? 0}`
+  );
   await page.locator(".navbar-toggler").click();
 
   await expect(page.locator(".navbar-nav")).toBeVisible();

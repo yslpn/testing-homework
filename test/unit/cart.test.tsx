@@ -52,4 +52,3 @@ test("в пустой корзине есть ссылка на каталог",
     screen.getByRole("link", { name: "catalog", exact: true })
   ).toHaveAttribute("href", "/hw/store/catalog");
 });
-

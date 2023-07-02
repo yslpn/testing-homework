@@ -1,28 +1,34 @@
 import { test, expect } from "@playwright/test";
 
 test('по адресу /cart открывается страница "корзины"', async ({ page }) => {
-  await page.goto("http://localhost:3000/hw/store/cart");
+  await page.goto(
+    `http://localhost:3000/hw/store/cart?bug_id=${process.env.BUG_ID ?? 0}`
+  );
 
   await expect(page.getByTestId("page-title")).toHaveText("Shopping cart");
 });
 
 test.describe("проверка функциональности корзины", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("http://localhost:3000/hw/store/catalog");
+    await page.goto(
+      `http://localhost:3000/hw/store/catalog?bug_id=${process.env.BUG_ID ?? 0}`
+    );
 
     await page.locator(".card-link").nth(0).click();
     await page.locator(".ProductDetails-AddToCart").click();
 
-    await page.goto("http://localhost:3000/hw/store/catalog");
+    await page.goto(
+      `http://localhost:3000/hw/store/catalog?bug_id=${process.env.BUG_ID ?? 0}`
+    );
 
     await page.locator(".card-link").nth(1).click();
-    // await page.goto(`${page.url()}?bug_id=6`);
     await page.locator(".ProductDetails-AddToCart").click();
 
-    await page.goto("http://localhost:3000/hw/store/catalog");
+    await page.goto(
+      `http://localhost:3000/hw/store/catalog?bug_id=${process.env.BUG_ID ?? 0}`
+    );
 
     await page.locator(".card-link").nth(2).click();
-    // await page.goto(`${page.url()}?bug_id=7`);
     await page.locator(".ProductDetails-AddToCart").click();
     await page.locator(".ProductDetails-AddToCart").click();
   });
@@ -30,7 +36,9 @@ test.describe("проверка функциональности корзины"
   test("если товар уже добавлен в корзину, в каталоге и на странице товара должно отображаться сообщение об этом", async ({
     page,
   }) => {
-    await page.goto("http://localhost:3000/hw/store/catalog");
+    await page.goto(
+      `http://localhost:3000/hw/store/catalog?bug_id=${process.env.BUG_ID ?? 0}`
+    );
 
     await page.locator(".card-link").nth(0).click();
     await expect(page.getByText("Item in cart")).toBeVisible();
@@ -39,7 +47,9 @@ test.describe("проверка функциональности корзины"
   test("если товар не добавлен в корзину, то не показываем надпись, что товар в корзине", async ({
     page,
   }) => {
-    await page.goto("http://localhost:3000/hw/store/catalog");
+    await page.goto(
+      `http://localhost:3000/hw/store/catalog?bug_id=${process.env.BUG_ID ?? 0}`
+    );
 
     await page.locator(".card-link").nth(3).click();
     await expect(page.getByText("Item in cart")).toBeHidden();
@@ -50,15 +60,23 @@ test.describe("проверка функциональности корзины"
   }) => {
     const itemId = 0;
 
-    await page.goto("http://localhost:3000/hw/store/cart");
+    await page.goto(
+      `http://localhost:3000/hw/store/cart?bug_id=${process.env.BUG_ID ?? 0}`
+    );
 
     const itemCount = await page
       .locator(`tr[data-testid="${itemId}"] .Cart-Count`)
       .textContent();
 
-    await page.goto(`http://localhost:3000/hw/store/catalog/${itemId}`);
+    await page.goto(
+      `http://localhost:3000/hw/store/catalog/${itemId}/?bug_id=${
+        process.env.BUG_ID ?? 0
+      }`
+    );
     await page.locator(".ProductDetails-AddToCart").click();
-    await page.goto("http://localhost:3000/hw/store/cart");
+    await page.goto(
+      `http://localhost:3000/hw/store/cart?bug_id=${process.env.BUG_ID ?? 0}`
+    );
 
     const newItemCount = await page
       .locator(`tr[data-testid="${itemId}"] .Cart-Count`)
@@ -70,7 +88,9 @@ test.describe("проверка функциональности корзины"
   test("содержимое корзины должно сохраняться между перезагрузками страницы", async ({
     page,
   }) => {
-    await page.goto("http://localhost:3000/hw/store/cart");
+    await page.goto(
+      `http://localhost:3000/hw/store/cart?bug_id=${process.env.BUG_ID ?? 0}`
+    );
     await page.reload();
 
     await expect(page.getByText("Cart is empty.")).toBeHidden();
@@ -79,7 +99,9 @@ test.describe("проверка функциональности корзины"
   test('в корзине должна быть кнопка "очистить корзину", по нажатию на которую все товары должны удаляться', async ({
     page,
   }) => {
-    await page.goto("http://localhost:3000/hw/store/cart");
+    await page.goto(
+      `http://localhost:3000/hw/store/cart?bug_id=${process.env.BUG_ID ?? 0}`
+    );
     await expect(page.getByText("Cart is empty.")).toBeHidden();
     await page.getByText("Clear shopping cart").click();
     await expect(page.getByText("Cart is empty.")).toBeVisible();
@@ -88,7 +110,9 @@ test.describe("проверка функциональности корзины"
   test("в шапке рядом со ссылкой на корзину должно отображаться количество не повторяющихся товаров в ней", async ({
     page,
   }) => {
-    await page.goto("http://localhost:3000/hw/store/cart");
+    await page.goto(
+      `http://localhost:3000/hw/store/cart?bug_id=${process.env.BUG_ID ?? 0}`
+    );
 
     const link = await page.locator(`.nav-link.active`).textContent();
 
@@ -96,10 +120,9 @@ test.describe("проверка функциональности корзины"
   });
 
   test("заказ выполнен успешно", async ({ page }) => {
-    // await page.goto("http://localhost:3000/hw/store/cart?bug_id=10");
-    // await page.goto("http://localhost:3000/hw/store/cart?bug_id=5");
-    // await page.goto("http://localhost:3000/hw/store/cart?bug_id=8");
-    await page.goto("http://localhost:3000/hw/store/cart");
+    await page.goto(
+      `http://localhost:3000/hw/store/cart?bug_id=${process.env.BUG_ID ?? 0}`
+    );
     await page.locator("#f-name").fill("Ivan Ivanov");
     await page.locator("#f-phone").fill("+995591805020");
     await page.locator("#f-address").fill("Tbilisi, 40 Simon Chikovani Street");
@@ -108,6 +131,6 @@ test.describe("проверка функциональности корзины"
 
     await expect(page.getByText("Well done!")).toBeVisible();
 
-    await expect(page).toHaveScreenshot({fullPage: true});
+    await expect(page).toHaveScreenshot({ fullPage: true });
   });
 });
