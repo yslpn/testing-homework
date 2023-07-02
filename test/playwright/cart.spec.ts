@@ -9,30 +9,6 @@ test('по адресу /cart открывается страница "корз�
 });
 
 test.describe("проверка функциональности корзины", () => {
-  test.beforeEach(async ({ page }) => {
-    await page.goto(
-      `http://localhost:3000/hw/store/catalog?bug_id=${process.env.BUG_ID ?? 0}`
-    );
-
-    await page.locator(".card-link").nth(0).click();
-    await page.locator(".ProductDetails-AddToCart").click();
-
-    await page.goto(
-      `http://localhost:3000/hw/store/catalog?bug_id=${process.env.BUG_ID ?? 0}`
-    );
-
-    await page.locator(".card-link").nth(1).click();
-    await page.locator(".ProductDetails-AddToCart").click();
-
-    await page.goto(
-      `http://localhost:3000/hw/store/catalog?bug_id=${process.env.BUG_ID ?? 0}`
-    );
-
-    await page.locator(".card-link").nth(2).click();
-    await page.locator(".ProductDetails-AddToCart").click();
-    await page.locator(".ProductDetails-AddToCart").click();
-  });
-
   test("если товар уже добавлен в корзину, в каталоге и на странице товара должно отображаться сообщение об этом", async ({
     page,
   }) => {
@@ -41,6 +17,7 @@ test.describe("проверка функциональности корзины"
     );
 
     await page.locator(".card-link").nth(0).click();
+    await page.locator(".ProductDetails-AddToCart").click();
     await expect(page.getByText("Item in cart")).toBeVisible();
   });
 
@@ -51,14 +28,21 @@ test.describe("проверка функциональности корзины"
       `http://localhost:3000/hw/store/catalog?bug_id=${process.env.BUG_ID ?? 0}`
     );
 
-    await page.locator(".card-link").nth(3).click();
-    await expect(page.getByText("Item in cart")).toBeHidden();
+    await page.locator(".card-link").nth(0).click();
+    await expect(page.getByText("Item in cart")).not.toBeVisible();
   });
 
   test('если товар уже добавлен в корзину, повторное нажатие кнопки "добавить в корзину" должно увеличивать его количество', async ({
     page,
   }) => {
     const itemId = 0;
+
+    await page.goto(
+      `http://localhost:3000/hw/store/catalog?bug_id=${process.env.BUG_ID ?? 0}`
+    );
+
+    await page.locator(".card-link").nth(0).click();
+    await page.locator(".ProductDetails-AddToCart").click();
 
     await page.goto(
       `http://localhost:3000/hw/store/cart?bug_id=${process.env.BUG_ID ?? 0}`
@@ -73,6 +57,7 @@ test.describe("проверка функциональности корзины"
         process.env.BUG_ID ?? 0
       }`
     );
+
     await page.locator(".ProductDetails-AddToCart").click();
     await page.goto(
       `http://localhost:3000/hw/store/cart?bug_id=${process.env.BUG_ID ?? 0}`
@@ -89,6 +74,12 @@ test.describe("проверка функциональности корзины"
     page,
   }) => {
     await page.goto(
+      `http://localhost:3000/hw/store/catalog?bug_id=${process.env.BUG_ID ?? 0}`
+    );
+
+    await page.locator(".card-link").nth(0).click();
+    await page.locator(".ProductDetails-AddToCart").click();
+    await page.goto(
       `http://localhost:3000/hw/store/cart?bug_id=${process.env.BUG_ID ?? 0}`
     );
     await page.reload();
@@ -100,9 +91,14 @@ test.describe("проверка функциональности корзины"
     page,
   }) => {
     await page.goto(
+      `http://localhost:3000/hw/store/catalog?bug_id=${process.env.BUG_ID ?? 0}`
+    );
+
+    await page.locator(".card-link").nth(0).click();
+    await page.locator(".ProductDetails-AddToCart").click();
+    await page.goto(
       `http://localhost:3000/hw/store/cart?bug_id=${process.env.BUG_ID ?? 0}`
     );
-    await expect(page.getByText("Cart is empty.")).toBeHidden();
     await page.getByText("Clear shopping cart").click();
     await expect(page.getByText("Cart is empty.")).toBeVisible();
   });
@@ -111,15 +107,31 @@ test.describe("проверка функциональности корзины"
     page,
   }) => {
     await page.goto(
+      `http://localhost:3000/hw/store/catalog?bug_id=${process.env.BUG_ID ?? 0}`
+    );
+    await page.locator(".card-link").nth(0).click();
+    await page.locator(".ProductDetails-AddToCart").click();
+    await page.goto(
+      `http://localhost:3000/hw/store/catalog?bug_id=${process.env.BUG_ID ?? 0}`
+    );
+    await page.locator(".card-link").nth(1).click();
+    await page.locator(".ProductDetails-AddToCart").click();
+    await page.locator(".ProductDetails-AddToCart").click();
+    await page.goto(
       `http://localhost:3000/hw/store/cart?bug_id=${process.env.BUG_ID ?? 0}`
     );
 
     const link = await page.locator(`.nav-link.active`).textContent();
 
-    expect(Number(link?.match(/\d+/)?.[0])).toBe(3);
+    expect(Number(link?.match(/\d+/)?.[0])).toBe(2);
   });
 
   test("заказ выполнен успешно", async ({ page }) => {
+    await page.goto(
+      `http://localhost:3000/hw/store/catalog?bug_id=${process.env.BUG_ID ?? 0}`
+    );
+    await page.locator(".card-link").nth(0).click();
+    await page.locator(".ProductDetails-AddToCart").click();
     await page.goto(
       `http://localhost:3000/hw/store/cart?bug_id=${process.env.BUG_ID ?? 0}`
     );
