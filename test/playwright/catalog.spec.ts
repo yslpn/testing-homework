@@ -42,3 +42,25 @@ test("по адресу /catalog отобразились все товары, �
     ).toBeVisible();
   }
 });
+
+test("api предоставляет разные продукты по разному id", async ({ page }) => {
+  const products = await fetch(
+    `http://localhost:3000/hw/store/api/products?bug_id=${
+      process.env.BUG_ID ?? 0
+    }`
+  ).then((res) => res.json());
+
+  const firstProduct = await fetch(
+    `http://localhost:3000/hw/store/api/products/${products[0].id}?bug_id=${
+      process.env.BUG_ID ?? 0
+    }`
+  ).then((res) => res.json());
+
+  const lastProduct = await fetch(
+    `http://localhost:3000/hw/store/api/products/${products.at(-1).id}?bug_id=${
+      process.env.BUG_ID ?? 0
+    }`
+  ).then((res) => res.json());
+
+  expect(firstProduct).not.toMatchObject(lastProduct);
+});
