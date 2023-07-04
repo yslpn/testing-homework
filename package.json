@@ -5,7 +5,7 @@
     "start": "nodemon ./src/server/index.ts",
     "test:unit": "jest",
     "test:e2e": "playwright test --project=chromium",
-    "test:e2e:gui": "playwright test --project=chromium && playwright show-report",
+    "test:e2e:gui": "playwright test --project=chromium --reporter=html && playwright show-report",
     "test": "npm run test:unit && npm run test:e2e",
     "build": "webpack --mode=production --node-env=production",
     "watch": "webpack --watch"

@@ -1,4 +1,4 @@
-import { test, expect, devices } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 
 test('на ширине меньше 576px навигационное меню должно скрываться за "гамбургер"', async ({
   page,
